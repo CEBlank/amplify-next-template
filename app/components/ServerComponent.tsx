@@ -1,27 +1,12 @@
-"use client";
-
-import { useEffect, useState } from "react";
-
-export default function LocationFinderServer() {
-    const [locationInfo, setLocationInfo] = useState({City: "N/A"});
-
-    const getLocationInfo = async () => {
-
-        
-      const response = await fetch("https://apip.cc/json");
-      const locationData = await response.json();
-      setLocationInfo(locationData);
-      console.log(response);
-
-    };
-
-    useEffect(() => {
-        getLocationInfo();
-    }, [])
+export default async function LocationFinderServer() {
+    
+    const response = await fetch("https://apip.cc/json");
+    const locationData = await response.json();
+    const locationInfo = locationData;
 
 return (
     <>
-        <h1>Client Component: Hello from {locationInfo.City}!</h1>
+        <h1>Server Component: Hello from {locationInfo?.City}!</h1>
     </>
 );
 }
