@@ -19,8 +19,8 @@ export default function LocationFinderClient() {
 
       setCity(locationData?.City);
 
-      console.log(locationData);
-      console.log(locationData.City);
+      //console.log(locationData);
+      //console.log(locationData.City);
     
         
       //weather based on location data API 
@@ -30,7 +30,7 @@ export default function LocationFinderClient() {
         + locationData?.Latitude
         + "&ac=0&unit=metric&output=json&tzshift=0";
 
-            console.log(url);
+          //  console.log(url);
 
          const res = await fetch(url);
          const weatherData = await res.json();   
