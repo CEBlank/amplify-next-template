@@ -5,7 +5,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 export default function Loading() {
     return (
         <div>
-            <h3>Loading Local Weather...</h3>           
+            <h3>Loading...</h3>           
         </div>
     );   
 }
