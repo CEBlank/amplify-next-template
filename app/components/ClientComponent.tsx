@@ -7,7 +7,7 @@ export default function LocationFinderClient() {
     const [locationInfo, setLocationInfo] = useState({"City" : "N/A"});
     const [localWeather, setLocalWeather] = useState(0);
     const [loadingGlimmer, setLoading] = useState(true);
-    //const [localFahrenheit, setFahrenheit] = useState(0);
+    const [localFahrenheit, setFahrenheit] = useState(0);
     
     const getLocationInfo = async () => {
       //await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -33,7 +33,10 @@ export default function LocationFinderClient() {
 
         setLocalWeather(weatherData?.dataseries[0]?.temp2m);
 
-        //setFahrenheit((localWeather * 9/5) + 32);
+        const temp = weatherData?.dataseries[0]?.temp2m;
+
+        setFahrenheit((temp * 9/5) + 32);
+        console.log("Fahrenheit", localFahrenheit);
 
         setLoading(false);
     };
@@ -50,7 +53,7 @@ return (
             <>
                 <h4>Client Component:</h4>
                 <h3>Hello from {locationInfo.City}!</h3>
-                <p>The temperature in {locationInfo.City} is {localWeather} degrees Celsius. {/* {localFahrenheit} degrees Fahrenheit. */}</p> 
+                <p>The temperature in {locationInfo.City} is {localWeather} degrees Celsius, {localFahrenheit} degrees Fahrenheit.</p> 
          </>
         )}
     </>

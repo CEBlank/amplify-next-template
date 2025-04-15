@@ -4,9 +4,17 @@ export default async function LocationFinderServer() {
     const locationData = await response.json();
     const locationInfo = locationData;
 
-    const res = await fetch("https://www.7timer.info/bin/astro.php?lon=113.2&lat=23.1&ac=0&unit=metric&output=json&tzshift=0");
-    const weatherData = (await res.json()).dataseries;
-    const localWeather = weatherData[0].temp2m;
+    const url = "https://www.7timer.info/bin/astro.php?lon=" 
+    + locationData?.Longitude
+    + "$lat="
+    + locationData?.Latitude
+    + "&ac=0&unit=metric&output=json&tzshift=0";
+
+    const res = await fetch(url);
+    const weatherData = await res.json();
+    
+    
+    const localWeather = weatherData?.dataseries[0]?.temp2m
     const localFahrenheit = (localWeather * 9/5) + 32;
 
 
