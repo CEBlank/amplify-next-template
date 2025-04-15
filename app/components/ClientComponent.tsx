@@ -10,7 +10,7 @@ export default function LocationFinderClient() {
     const [localFahrenheit, setFahrenheit] = useState(0);
     
     const getLocationInfo = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      //await new Promise((resolve) => setTimeout(resolve, 2000));
       const response = await fetch("https://apip.cc/json");
       const locationData = await response.json();
       setLocationInfo(locationData);
