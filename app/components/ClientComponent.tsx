@@ -35,7 +35,7 @@ return (
             <Loading />
         ) : (
             <>
-                <h4>Client Component</h4>
+                <h4>Client Component:</h4>
                 <h3>Hello from {locationInfo.City}!</h3>
                 <p>The temperature in {locationInfo.City} is {localWeather} degrees Celsius, {localFahrenheit} degrees Fahrenheit.</p> 
          </>
