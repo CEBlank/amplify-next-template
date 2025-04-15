@@ -4,13 +4,9 @@ import { useEffect, useState } from "react";
 import Loading from "../loading";
 
 export default function LocationFinderClient() {
-    const [locationInfo, setLocationInfo] = useState({City : "N/A", Latitude: "N/A", Longitude: "N/A"});
-
-    const [userCity, setCity] = useState("");
-    const [userLat, setLat] = useState<any>(null);
-    const [userLong, setLong] = useState<any>(null);
-    
-    const [localWeather, setLocalWeather] = useState("");
+   
+    const [userCity, setCity] = useState(""); 
+    const [localWeather, setLocalWeather] = useState(0);
 
     const [loadingGlimmer, setLoading] = useState(true);
     const [localFahrenheit, setFahrenheit] = useState(0);
@@ -21,40 +17,31 @@ export default function LocationFinderClient() {
       const response = await fetch("https://apip.cc/json");
       const locationData = await response.json();
 
-      setLocationInfo(locationData);
-      setCity(locationData.City);
-      setLong(locationData.Longitude);
-      setLat(locationData.Latitude);
+      setCity(locationData?.City);
 
-        console.log(locationData);
-        console.log(locationData.City);
-        console.log(locationInfo);
-
+      console.log(locationData);
+      console.log(locationData.City);
+    
         
-            //weather based on location data API 
-            const url = "https://www.7timer.info/bin/astro.php?lon="
-            + locationData.Longitude
-            + "$lat="
-            + locationData.Latitude
-            + "&ac=0&unit=metric&output=json&tzshift=0";
-
-
-            const res = await fetch(url);
-            const weatherData = await res.json();
+      //weather based on location data API 
+      const url = "https://www.7timer.info/bin/astro.php?lon="
+        + locationData?.Longitude
+        + "&lat="
+        + locationData?.Latitude
+        + "&ac=0&unit=metric&output=json&tzshift=0";
 
             console.log(url);
 
-            setLocalWeather(weatherData?.dataseries[0]?.temp2m);
+         const res = await fetch(url);
+         const weatherData = await res.json();   
 
-            console.log(localWeather);
+       setLocalWeather(weatherData?.dataseries[0]?.temp2m);
+      
 
-            const temp = weatherData?.dataseries[0]?.temp2m;
+       const temp = weatherData?.dataseries[0]?.temp2m;
 
-            setFahrenheit((temp * 1.8) + 32);
-            Number(localFahrenheit).toFixed(0);
-
-            // console.log("Fahrenheit", localFahrenheit);
-
+       setFahrenheit((temp * 1.8) + 32);
+       Number(localFahrenheit).toFixed(0);
 
         setLoading(false);
     };
@@ -70,8 +57,8 @@ return (
         ) : (
             <>
                 <h4>Client Component:</h4>
-                <h3>Hello from {locationInfo.City}!</h3>
-                <p>The temperature in {locationInfo.City} is {localWeather} degrees Celsius, {localFahrenheit} degrees Fahrenheit.</p> 
+                <h3>Hello from {userCity}!</h3>
+                <p>The temperature in {userCity} is {localWeather}° Celsius, or {localFahrenheit}° Fahrenheit.</p> 
          </>
         )}
     </>

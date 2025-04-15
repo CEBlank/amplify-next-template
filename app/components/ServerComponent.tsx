@@ -23,7 +23,7 @@ return (
         <h4>Server Component:</h4>
             <h3>Hello from {locationInfo?.City}!</h3>
         <p>
-           The local temperature is {localWeather} degrees Celsius, {localFahrenheit} degrees Fahrenheit.
+           The local temperature is {localWeather}° Celsius, or {localFahrenheit}° Fahrenheit.
         </p>
     </>
 );
