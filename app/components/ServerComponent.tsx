@@ -15,7 +15,7 @@ export default async function LocationFinderServer() {
     
     
     const localWeather = weatherData?.dataseries[0]?.temp2m
-    const localFahrenheit = (localWeather * 9/5) + 32;
+    const localFahrenheit = Number((localWeather * 1.8) + 32).toFixed(0);
 
 
 return (
