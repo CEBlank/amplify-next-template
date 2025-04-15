@@ -1,14 +1,16 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import Loading from "../loading";
 
 export default function LocationFinderClient() {
     const [locationInfo, setLocationInfo] = useState({City: "N/A"});
     const [localWeather, setLocalWeather] = useState(null);
-    const [temperatureConvert, setConversion] = useState(0);
+    const [loadingGlimmer, setLoading] = useState(true);
     
     
     const getLocationInfo = async () => {
+      await new Promise((resolve) => setTimeout(resolve, 2000));
       const response = await fetch("https://apip.cc/json");
       const locationData = await response.json();
       setLocationInfo(locationData);
@@ -19,6 +21,7 @@ export default function LocationFinderClient() {
     
         setLocalWeather(weatherData[0].temp2m);
         
+        setLoading(false);
     };
 
     useEffect(() => {
@@ -27,9 +30,15 @@ export default function LocationFinderClient() {
 
 return (
     <>
-        <h4>Client Component</h4>
-        <h2>Hello from {locationInfo.City}!</h2>
-        <p>The temperature in {locationInfo.City} is {localWeather} degrees Celcius </p> 
+        {loadingGlimmer ? (
+            <Loading />
+        ) : (
+            <>
+                <h4>Client Component</h4>
+                <h2>Hello from {locationInfo.City}!</h2>
+                <p>The temperature in {locationInfo.City} is {localWeather} degrees Celsius </p> 
+         </>
+        )}
     </>
 );
 }
